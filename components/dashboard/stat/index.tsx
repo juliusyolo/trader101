@@ -63,7 +63,10 @@ export default function DashboardStat({
         </CardTitle>
       </CardHeader>
 
-      <CardContent className="bg-accent flex-1 pt-2 md:pt-6 overflow-clip relative">
+      <CardContent className={cn(
+        "bg-accent flex-1 pt-2 md:pt-6 overflow-clip relative",
+        direction && "pr-14"
+      )}>
         <div className="flex items-center">
           <span className="text-4xl md:text-5xl font-display">
             {isNumeric ? (

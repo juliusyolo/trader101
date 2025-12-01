@@ -81,15 +81,18 @@ export default function DashboardChart() {
 
   const formatYAxisValue = (value: number) => {
     if (value === 0) {
-      return ""
+      return "0"
     }
 
-    if (value >= 1000000) {
-      return `$${(value / 1000000).toFixed(0)}M`
-    } else if (value >= 1000) {
-      return `$${(value / 1000).toFixed(0)}K`
+    const absValue = Math.abs(value)
+    const sign = value < 0 ? "-" : ""
+
+    if (absValue >= 1000000) {
+      return `${sign}$${(absValue / 1000000).toFixed(1)}M`
+    } else if (absValue >= 1000) {
+      return `${sign}$${(absValue / 1000).toFixed(1)}K`
     }
-    return `$${value}`
+    return `${sign}$${absValue}`
   }
 
   const renderChart = (data: ChartDataPoint[]) => {
@@ -100,7 +103,7 @@ export default function DashboardChart() {
             accessibilityLayer
             data={data}
             margin={{
-              left: -12,
+              left: 0,
               right: 12,
               top: 12,
               bottom: 12,
@@ -129,11 +132,12 @@ export default function DashboardChart() {
             <YAxis
               tickLine={false}
               axisLine={false}
-              tickMargin={0}
+              tickMargin={8}
               tickCount={6}
+              width={60}
               className="text-sm fill-muted-foreground"
               tickFormatter={formatYAxisValue}
-              domain={[0, "dataMax"]}
+              domain={["auto", "auto"]}
             />
             <ChartTooltip
               cursor={false}
